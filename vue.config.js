@@ -8,7 +8,7 @@ module.exports = {
   chainWebpack: config => {
     config.resolve.alias.set("@", resolve("src"));
   },
-  publicPath: process.env.NODE_ENV === "production" ? "/my-vue-template" : "/",//项目根目录
+  publicPath: process.env.NODE_ENV === "production" ? "/dynamic-Router-master2" : "/",//项目根目录
   devServer: {
     proxy: {
       '/api': {
