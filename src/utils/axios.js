@@ -17,7 +17,7 @@ axiosConfig.ajax = function(){
 axiosConfig.ajaxtest = function(){
     //外网测试接口基础配置
     const service=axios.create({
-        baseURL: '/test',
+        baseURL: process.env.NODE_ENV === "production" ? "http://rap2api.taobao.org/" : "/test",
         timeout: 1800000
     });
     //添加请求响应拦截器
