@@ -1,5 +1,5 @@
 import { asyncRouterMap, commontRouterMap, errorRouterMap} from "@/router";
-
+import { getMenuList } from "@/api/test/test";
 const router = {
   state: {
     routers: {...commontRouterMap}, //当前已存在的路由列表
@@ -24,11 +24,22 @@ const router = {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
         const { roles } = data;
-        // 递归循环路由获取该角色的允许的路由并返回
-        let accessedRouters = filterAsyncRoutes(asyncRouterMap, roles);
-        // 保存允许访问的路由
-        commit("SET_ROUTERS", accessedRouters);
-        resolve();
+        let send={
+          token:'123456',
+          id:"asdishdhaksdh"
+        }
+        getMenuList(send).then((res)=>{
+          console.log("resssssss",res)
+          // 处理路由
+          let newRouters=importComponents(res.data);
+          console.log("888888888",newRouters)
+          // 递归循环路由获取该角色的允许的路由并返回
+          let accessedRouters = filterAsyncRoutes(newRouters, roles);
+
+          // 保存允许访问的路由
+          commit("SET_ROUTERS", accessedRouters);
+          resolve();
+        });
       });
     },
   }
@@ -67,14 +78,42 @@ export function filterAsyncRoutes(routes, roles) {
 /**
  * 判断角色是否有该路由的权限
  * @param roles //对应的角色信息
- * @param route //要查找的路由列表
+ * @param route //要查找的路由对象
  */
 function hasPermission(roles, route) {
-  if (route.meta && route.meta.role) {
+  if (route.meta && route.meta.role && route.meta.role.length>0) {
     return route.meta.role.includes(roles);
   } else {
     return true;
   }
 }
+/**
+ * 转换字符换为成引入组件的函数
+ * @param routes //要查找的路由对象
+ */
+function importComponents(routes) {
+  routes.forEach((item,index)=>{
+    item.component = getViews(item.component)
+    if(item.children && item.children.length>0){
+      importComponents(item.children);
+    }else{
+      delete item.children;
+    }
+  })
+  return routes;
+}
+
+/**
+ * 转路径为函数
+ * @param path //组件路径
+ */
+function getViews(path) {
+  return resolve => {
+    require.ensure([], (require) => {
+      resolve(require('@/views/' + path + '.vue'))
+    })
+  }
+}
+
 
 export default router;

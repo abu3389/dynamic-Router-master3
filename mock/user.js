@@ -53,12 +53,12 @@ export default {
 
         if (username in tokens && tokens[username].pas == password) {
             return {
-                code: 200,
+                state: 100,
                 result: tokens[username].token
             };
         }
         return {
-            code: 90001,
+            state: 90001,
             message: "账户或密码错误."
         };
     },
@@ -68,18 +68,18 @@ export default {
 
         if (info) {
             return {
-                code: 200,
+                state: 100,
                 result: info
             };
         }
         return {
-            code: 50008,
+            state: 50008,
             message: "登陆失败，无法获取用户信息"
         };
     },
     logout: () => {
         return {
-            code: 200,
+            state: 100,
             data: "success"
         };
     }

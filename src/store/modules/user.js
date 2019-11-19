@@ -1,4 +1,4 @@
-import serviceManger from "@/service/index";
+import mockTest from "@/api/test/mock";
 import { resetRouter } from "@/router";
 
 // import cookie from "@/utils/cookie.js";
@@ -36,7 +36,7 @@ const user = {
     Login({ commit }, userInfo) {
       const username = userInfo.username.trim();
       return new Promise((resolve, reject) => {
-        serviceManger.login(username, userInfo.password).then(response => {
+        mockTest.login(username, userInfo.password).then(response => {
           if (response) {
             // cookie.setCookie(app, response.result, 60); //60为 1分钟
             cookie.set(app, response.result); //
@@ -51,7 +51,7 @@ const user = {
     // // 获取用户信息
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        serviceManger.getInfo(state.token).then(response => {
+        mockTest.getInfo(state.token).then(response => {
           if (response) {
             const data = response.result;
             commit("SET_ROLES", data.roles);
@@ -68,7 +68,7 @@ const user = {
     //退出登录
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
-        serviceManger
+        mockTest
           .logout(state.token)
           .then(() => {
             commit("SET_TOKEN", "");

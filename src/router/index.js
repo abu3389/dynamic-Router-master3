@@ -30,8 +30,10 @@ export const commontRouterMap = [
 ];
 
 
-//异步挂载的路由
-//动态需要根据权限加载的路由表
+// 异步挂载的路由
+// 远程动态加载一些需要权限的私有页面，适用于需要一个菜单管理或者页面权限管理的需求，让后端根据role来输出对应路由
+//hiden 控制是否在菜单显示
+//role 控制该角色是否有路由的跳转权限
 export const asyncRouterMap = [
     {
         path: "/home",
