@@ -30,136 +30,136 @@ export const commontRouterMap = [
 ];
 
 
-// 异步挂载的路由
+// 异步挂载的路由，已由后端获取，可以注释
 // 远程动态加载一些需要权限的私有页面，适用于需要一个菜单管理或者页面权限管理的需求，让后端根据role来输出对应路由
 //hiden 控制是否在菜单显示
 //role 控制该角色是否有路由的跳转权限
 export const asyncRouterMap = [
-    {
-        path: "/home",
-        component: Layout,
-        meta: { title: "Home", icon: "el-icon-menu" }
-    },
-    {
-        path: "/userpower1",
-        component: Layout,
-        redirect: "/userpower1/1-1",
-        name: "userpower1",
-        meta: { title: "权限测试1", icon: "el-icon-tickets", role: ['0', '1', '2'] },
-        children: [
-            {
-                path: "1-1",
-                name: "1-1",
-                component: () =>
-                    import("@/views/userpower1/1-1"),
-                meta: { title: "1-1", role: ['0'] },
-            },
-            {
-                path: "1-2",
-                name: "1-2",
-                component: () =>
-                    import("@/views/userpower1/1-2"),
-                hidden: ['0'],//不在菜单显示的角色
-                meta: { title: "1-2", role: ['0', '1', '2'] }//role 允许通过某页跳转到这个路由的角色
-            },
-            {
-                path: "1-3",
-                name: "1-3",
-                component: () =>
-                    import("@/views/userpower1/1-3"),
-                hidden: true,//不在sidebar显示，由sidebar中的某路由跳转到这个页面,本例由1-2跳转，因此role与1-2同
-                meta: { title: "1-3", role: ['0', '1', '2'] }
-            }
-        ]
-    },
-    {
-        path: "/userpower2",
-        component: Layout,
-        redirect: "/userpower2/tree",
-        name: "userpower2",
-        meta: { title: "权限测试2", icon: "el-icon-tickets", role: ['0', '1'] },
-        children: [
-            {
-                path: "2-1",
-                name: "2-1",
-                component: () =>
-                    import("@/views/userpower2/2-1"),
-                meta: { title: "2-1", role: ['0'] }
-            },
-            {
-                path: "2-2",
-                name: "2-2",
-                component: () =>
-                    import("@/views/userpower2/2-2"),
-                hidden: ['0'],//用户角色为0时，隐藏
-                meta: { title: "2-2", role: ['0', '1'] }
-            }
-        ]
-    },
-    {
-        path: "/nested",
-        component: Layout,
-        redirect: "/nested/menu1",
-        name: "Nested",
-        meta: {
-            title: "多级菜单",
-            icon: "el-icon-news"
-        },
-        children: [
-            {
-                path: "menu1",
-                component: () =>
-                    import("@/views/nested/menu1/index"), // Parent router-view
-                name: "Menu1",
-                meta: { title: "Menu1" },
-                children: [
-                    {
-                        path: "menu1-1",
-                        component: () =>
-                            import("@/views/nested/menu1/menu1-1/index"),
-                        name: "Menu1-1",
-                        meta: { title: "Menu1-1" }
-                    },
-                    {
-                        path: "menu1-2",
-                        component: () =>
-                            import("@/views/nested/menu1/menu1-2/index"),
-                        name: "Menu1-2",
-                        meta: { title: "Menu1-2" },
-                        children: [
-                            {
-                                path: "menu1-2-1",
-                                component: () =>
-                                    import("@/views/nested/menu1/menu1-2/menu1-2-1/index"),
-                                name: "Menu1-2-1",
-                                meta: { title: "Menu1-2-1" }
-                            },
-                            {
-                                path: "menu1-2-2",
-                                component: () =>
-                                    import("@/views/nested/menu1/menu1-2/menu1-2-2/index"),
-                                name: "Menu1-2-2",
-                                meta: { title: "Menu1-2-2" }
-                            }
-                        ]
-                    },
-                    {
-                        path: "menu1-3",
-                        component: () =>
-                            import("@/views/nested/menu1/menu1-3/index"),
-                        name: "Menu1-3",
-                        meta: { title: "Menu1-3" }
-                    }
-                ]
-            },
-            {
-                path: "menu2",
-                component: () =>
-                    import("@/views/nested/menu2/index"),
-                meta: { title: "menu2" }
-            }
-        ]
-    }
+    // {
+    //     path: "/home",
+    //     component: Layout,
+    //     meta: { title: "Home", icon: "el-icon-menu" }
+    // },
+    // {
+    //     path: "/userpower1",
+    //     component: Layout,
+    //     redirect: "/userpower1/1-1",
+    //     name: "userpower1",
+    //     meta: { title: "权限测试1", icon: "el-icon-tickets", role: ['0', '1', '2'] },
+    //     children: [
+    //         {
+    //             path: "1-1",
+    //             name: "1-1",
+    //             component: () =>
+    //                 import("@/views/userpower1/1-1"),
+    //             meta: { title: "1-1", role: ['0'] },
+    //         },
+    //         {
+    //             path: "1-2",
+    //             name: "1-2",
+    //             component: () =>
+    //                 import("@/views/userpower1/1-2"),
+    //             hidden: ['0'],//不在菜单显示的角色
+    //             meta: { title: "1-2", role: ['0', '1', '2'] }//role 允许通过某页跳转到这个路由的角色
+    //         },
+    //         {
+    //             path: "1-3",
+    //             name: "1-3",
+    //             component: () =>
+    //                 import("@/views/userpower1/1-3"),
+    //             hidden: true,//不在sidebar显示，由sidebar中的某路由跳转到这个页面,本例由1-2跳转，因此role与1-2同
+    //             meta: { title: "1-3", role: ['0', '1', '2'] }
+    //         }
+    //     ]
+    // },
+    // {
+    //     path: "/userpower2",
+    //     component: Layout,
+    //     redirect: "/userpower2/tree",
+    //     name: "userpower2",
+    //     meta: { title: "权限测试2", icon: "el-icon-tickets", role: ['0', '1'] },
+    //     children: [
+    //         {
+    //             path: "2-1",
+    //             name: "2-1",
+    //             component: () =>
+    //                 import("@/views/userpower2/2-1"),
+    //             meta: { title: "2-1", role: ['0'] }
+    //         },
+    //         {
+    //             path: "2-2",
+    //             name: "2-2",
+    //             component: () =>
+    //                 import("@/views/userpower2/2-2"),
+    //             hidden: ['0'],//用户角色为0时，隐藏
+    //             meta: { title: "2-2", role: ['0', '1'] }
+    //         }
+    //     ]
+    // },
+    // {
+    //     path: "/nested",
+    //     component: Layout,
+    //     redirect: "/nested/menu1",
+    //     name: "Nested",
+    //     meta: {
+    //         title: "多级菜单",
+    //         icon: "el-icon-news"
+    //     },
+    //     children: [
+    //         {
+    //             path: "menu1",
+    //             component: () =>
+    //                 import("@/views/nested/menu1/index"), // Parent router-view
+    //             name: "Menu1",
+    //             meta: { title: "Menu1" },
+    //             children: [
+    //                 {
+    //                     path: "menu1-1",
+    //                     component: () =>
+    //                         import("@/views/nested/menu1/menu1-1/index"),
+    //                     name: "Menu1-1",
+    //                     meta: { title: "Menu1-1" }
+    //                 },
+    //                 {
+    //                     path: "menu1-2",
+    //                     component: () =>
+    //                         import("@/views/nested/menu1/menu1-2/index"),
+    //                     name: "Menu1-2",
+    //                     meta: { title: "Menu1-2" },
+    //                     children: [
+    //                         {
+    //                             path: "menu1-2-1",
+    //                             component: () =>
+    //                                 import("@/views/nested/menu1/menu1-2/menu1-2-1/index"),
+    //                             name: "Menu1-2-1",
+    //                             meta: { title: "Menu1-2-1" }
+    //                         },
+    //                         {
+    //                             path: "menu1-2-2",
+    //                             component: () =>
+    //                                 import("@/views/nested/menu1/menu1-2/menu1-2-2/index"),
+    //                             name: "Menu1-2-2",
+    //                             meta: { title: "Menu1-2-2" }
+    //                         }
+    //                     ]
+    //                 },
+    //                 {
+    //                     path: "menu1-3",
+    //                     component: () =>
+    //                         import("@/views/nested/menu1/menu1-3/index"),
+    //                     name: "Menu1-3",
+    //                     meta: { title: "Menu1-3" }
+    //                 }
+    //             ]
+    //         },
+    //         {
+    //             path: "menu2",
+    //             component: () =>
+    //                 import("@/views/nested/menu2/index"),
+    //             meta: { title: "menu2" }
+    //         }
+    //     ]
+    // }
 ];
 
 //错误页路由
