@@ -1,5 +1,7 @@
 # my-vue-admin
 
+演示地址：[http://sharecorner.top/dynamic-Router-master3/dist](http://sharecorner.top/dynamic-Router-master3/dist)
+
 ## Project setup
 ```
 yarn install
