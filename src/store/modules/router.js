@@ -30,7 +30,7 @@ const router = {
         }
         getMenuList(send).then((res)=>{
           console.log("resssssss",res)
-          // 处理路由
+          // 处理远程获取的路由
           let newRouters=importComponents(res.data);
           console.log("888888888",newRouters)
           // 递归循环路由获取该角色的允许的路由并返回
