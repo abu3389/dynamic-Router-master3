@@ -1,8 +1,10 @@
-import { asyncRouterMap, commontRouterMap, errorRouterMap} from "@/router";
+import { asyncRouterMap, commontRouterMap, errorRouterMap } from "@/router";
 import { getMenuList } from "@/api/test/test";
 const router = {
   state: {
-    routers: {...commontRouterMap}, //当前已存在的路由列表
+    routers: {
+      ...commontRouterMap
+    }, //当前已存在的路由列表
     addRouters: [] //动态添加的路由列表
   },
   getters: {
@@ -14,9 +16,9 @@ const router = {
   mutations: {
     SET_ROUTERS: (state, addRouters) => {
       //保存属于该角色动态添加的权限路由（菜单路由+错误页路由都是动态添加的）
-      state.addRouters = addRouters.concat(errorRouterMap); 
+      state.addRouters = addRouters.concat(errorRouterMap);
       //将公共路由与动态添加的路由合并保存
-      state.routers = commontRouterMap.concat(state.addRouters)
+      state.routers = commontRouterMap.concat(state.addRouters);
     }
   },
   actions: {
@@ -24,15 +26,13 @@ const router = {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
         const { roles } = data;
-        let send={
-          token:'123456',
-          id:"asdishdhaksdh"
-        }
-        getMenuList(send).then((res)=>{
-          console.log("resssssss",res)
+        let send = {
+          token: "123456",
+          id: "asdishdhaksdh"
+        };
+        getMenuList(send).then(res => {
           // 处理远程获取的路由
-          let newRouters=importComponents(res.data);
-          console.log("888888888",newRouters)
+          let newRouters = importComponents(res.data);
           // 递归循环路由获取该角色的允许的路由并返回
           let accessedRouters = filterAsyncRoutes(newRouters, roles);
 
@@ -41,7 +41,7 @@ const router = {
           resolve();
         });
       });
-    },
+    }
   }
 };
 
@@ -55,7 +55,9 @@ export function filterAsyncRoutes(routes, roles) {
   // 递归循环路由
   routes.forEach(route => {
     // 展开当前路由
-    const tmp = { ...route };
+    const tmp = {
+      ...route
+    };
     // 判断角色是否有该路由的权限
     if (hasPermission(roles, tmp)) {
       // 有子路由继续递归
@@ -81,7 +83,7 @@ export function filterAsyncRoutes(routes, roles) {
  * @param route //要查找的路由对象
  */
 function hasPermission(roles, route) {
-  if (route.meta && route.meta.role && route.meta.role.length>0) {
+  if (route.meta && route.meta.role && route.meta.role.length > 0) {
     return route.meta.role.includes(roles);
   } else {
     return true;
@@ -92,14 +94,14 @@ function hasPermission(roles, route) {
  * @param routes //要查找的路由对象
  */
 function importComponents(routes) {
-  routes.forEach((item,index)=>{
-    item.component = getViews(item.component)
-    if(item.children && item.children.length>0){
+  routes.forEach((item, index) => {
+    item.component = getViews(item.component);
+    if (item.children && item.children.length > 0) {
       importComponents(item.children);
-    }else{
+    } else {
       delete item.children;
     }
-  })
+  });
   return routes;
 }
 
@@ -109,11 +111,10 @@ function importComponents(routes) {
  */
 function getViews(path) {
   return resolve => {
-    require.ensure([], (require) => {
-      resolve(require('@/views/' + path + '.vue'))
-    })
-  }
+    require.ensure([], require => {
+      resolve(require("@/views/" + path + ".vue"));
+    });
+  };
 }
-
 
 export default router;
