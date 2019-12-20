@@ -31,6 +31,21 @@ export default {
     variables() {
       return variables;
     }
+  },
+  watch: {
+    // 监听浏览器直接输入路由，将此路由添加到tabnavBox
+    $route: function(val) {
+      this.selectmenu(val);
+    }
+  },
+  methods: {
+    //选择菜单触发的事件
+    selectmenu(key) {
+      this.$store.dispatch("addTab", {
+        title: key.name,
+        path: key.path
+      });
+    }
   }
 };
 </script>

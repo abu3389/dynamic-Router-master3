@@ -73,6 +73,7 @@ const user = {
           .then(() => {
             commit("SET_TOKEN", "");
             commit("SET_ROLES", "");
+            commit("removeAllTab");
             cookie.remove(app);
             resetRouter();
             resolve();
