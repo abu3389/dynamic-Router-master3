@@ -4,32 +4,38 @@ import { resetRouter } from "@/router";
 // import cookie from "@/utils/cookie.js";
 import cookie from "js-cookie";
 let app = "my-vue-admin";
+let userName = "userName";
 const user = {
   state: {
-    // token: cookie.getCookie(app),
-    token: cookie.get(app),
-    name: "",
-    avatar: "",
-    roles: ""
+    token: cookie.get(app), //获取token
+    rolename: "", //用户角色名称
+    username: cookie.get(userName), //用户昵称
+    avatar: "", //用户头像
+    roles: "" //用户角色类型
   },
   mutations: {
     SET_TOKEN(state, token) {
       state.token = token;
     },
-    SET_NAME: (state, name) => {
-      state.name = name;
+    SET_ROLENAME: (state, rolename) => {
+      state.rolename = rolename;
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar;
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles;
+    },
+    SET_USERNAME: (state, username) => {
+      state.username = username;
     }
   },
   getters: {
     gettoken: state => state.token,
     getroles: state => state.roles,
-    getavatar: state => state.avatar
+    getavatar: state => state.avatar,
+    rolename: state => state.rolename,
+    username: state => state.username
   },
   actions: {
     // 登录
@@ -39,7 +45,9 @@ const user = {
         mockTest.login(username, userInfo.password).then(response => {
           if (response) {
             // cookie.setCookie(app, response.result, 60); //60为 1分钟
-            cookie.set(app, response.result); //
+            cookie.set(userName, username);
+            cookie.set(app, response.result);
+            commit("SET_USERNAME", username);
             commit("SET_TOKEN", response.result);
             resolve(response);
           } else {
@@ -55,9 +63,8 @@ const user = {
           if (response) {
             const data = response.result;
             commit("SET_ROLES", data.roles);
-            commit("SET_NAME", data.name);
+            commit("SET_ROLENAME", data.rolename);
             commit("SET_AVATAR", data.avatar);
-
             resolve(response);
           } else {
             reject(response);
@@ -72,9 +79,12 @@ const user = {
           .logout(state.token)
           .then(() => {
             commit("SET_TOKEN", "");
+            commit("SET_USERNAME", "");
             commit("SET_ROLES", "");
+            commit("SET_USERNAME", "");
             commit("removeAllTab");
             cookie.remove(app);
+            cookie.remove(userName);
             resetRouter();
             resolve();
           })

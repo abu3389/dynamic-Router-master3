@@ -5,6 +5,11 @@ import store from "./store/";
 //配置elementui
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+
+//图标库
+import "./assets/iconfont/iconfont.css";
+import "font-awesome/css/font-awesome.css";
+
 //配置iViewui
 import ViewUI from "view-design";
 import "view-design/dist/styles/iview.css";

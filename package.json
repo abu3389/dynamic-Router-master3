@@ -10,9 +10,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "element-ui": "^2.13.0",
+    "font-awesome": "^4.7.0",
     "js-cookie": "^2.2.0",
     "less": "^3.10.3",
     "mockjs": "^1.0.1-beta3",
+    "node-sass": "^4.13.0",
     "normalize.css": "^8.0.1",
     "view-design": "^4.0.1",
     "vue": "^2.6.6",
@@ -29,8 +31,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "less-loader": "^5.0.0",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
     "vue-template-compiler": "^2.5.21"
   },

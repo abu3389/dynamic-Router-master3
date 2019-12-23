@@ -2,14 +2,14 @@
   <div id="login">
     <div class="loginConbox">
       <div class="header">
-        <!--<div class="logo">-->
-        <!--<img src="../../assets/logo.png">-->
-        <!--</div>-->
+        <!-- <div class="logo">
+          <img src="../../assets/logo.png" />
+        </div>-->
       </div>
       <div class="loginBox">
         <div class="loginCon">
           <p class="title">vue-追寻权限管理后台模板</p>
-          <p class="title">前台: vue + element-ui</p>
+          <p class="title">前台: vue-cli3 + element-ui</p>
           <el-card shadow="always" class="login-module" v-if="smdl">
             <div slot="header" class="clearfix formTitlt">
               <span>密码登录</span>
@@ -49,11 +49,11 @@
                   >登录</el-button
                 >
               </el-form-item>
-              <!-- <p class="smalltxt">
+              <div class="smalltxt">
                 <router-link class="a" to="#">忘记密码</router-link>
                 <router-link class="a" to="#">忘记会员名</router-link>
                 <router-link class="a" to="#">免费注册</router-link>
-              </p>-->
+              </div>
               <div>演示账号密码：</div>
               <div>
                 <span>username: admin</span>&nbsp;
@@ -91,9 +91,9 @@
                 <i class="iconfont xu-saomadenglu fa-2x iconcolor"></i>
                 <p>打开 微信 扫一扫登录</p>
               </div>
-              <p class="smalltxt">
+              <div class="smalltxt">
                 <router-link class="a" to="#">免费注册</router-link>
-              </p>
+              </div>
             </div>
           </el-card>
         </div>
@@ -217,7 +217,7 @@ export default {
       }
       .login-module {
         width: 380px;
-        height: 360px;
+        min-height: 310px;
         margin-top: 60px;
         border: none;
         position: absolute;
