@@ -12,8 +12,8 @@
         ></i>
       </span>
       <ul class="personal">
-        <!-- 全屏 -->
-        <full-screen v-model="isfullScreen" @on-change="fullscreenChange" class="fullScreen"></full-screen>
+        <!-- 全屏组件 -->
+        <full-screen></full-screen>
         <li>{{ $store.getters.rolename }}</li>
         <!-- 用户中心下拉菜单 -->
         <li>
@@ -48,9 +48,7 @@ import fullScreen from '@/components/layout/fullScreen'
 export default {
   components: { tabNav, fullScreen },
   data() {
-    return {
-      isfullScreen: true
-    }
+    return {}
   },
   methods: {
     //展开或缩小菜单
@@ -119,9 +117,6 @@ ul.el-menu {
     li {
       @include set-value(margin, 13px);
       font-size: 12px;
-    }
-    .fullScreen {
-      @extend %cursor;
     }
     .el-dropdown-link {
       @extend %cursor;
