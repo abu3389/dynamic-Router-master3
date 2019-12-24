@@ -74,6 +74,7 @@ export default {
 }
 </script>
 <style>
+/* 全屏属性 */
 :not(:root):-webkit-full-screen::backdrop {
   background: #fff !important;
 }
@@ -81,6 +82,14 @@ export default {
   background: #fff !important;
 }
 :not(:root):-ms-fullscreen::backdrop {
+  background: #fff !important;
+}
+/* 全屏伪类 当前chrome:70 不支持 */
+:not(:root):full-screen::backdrop {
+  background: #fff !important;
+}
+:not(:root):fullscreen::backdrop {
+  /* IE11支持 */
   background: #fff !important;
 }
 </style>

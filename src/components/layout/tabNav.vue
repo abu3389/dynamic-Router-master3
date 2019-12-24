@@ -10,11 +10,7 @@
           :class="{ active: $route.path === item.path }"
         >
           <router-link :to="item.path">{{ item.title }}</router-link>
-          <i
-            @click="removeTab(item)"
-            class="el-icon-error"
-            v-if="index !== 0"
-          ></i>
+          <i @click="removeTab(item)" class="el-icon-error" v-if="index !== 0"></i>
         </li>
       </transition-group>
     </div>
@@ -35,55 +31,59 @@
 
 <script>
 export default {
-  name: "tabNav",
+  name: 'tabNav',
   data() {
     return {
       rightMenuShow: false,
       left: 0,
       top: 0
-    };
+    }
   },
   methods: {
     openMenu(item, e, index) {
       if (index === 0) {
-        return false;
+        return false
       }
-      this.rightMenuShow = true;
-      this.left = e.clientX + 10;
-      this.top = e.clientY;
-      this.$store.dispatch("openMenu", item);
+      this.rightMenuShow = true
+      //获取左侧菜单宽度（width+左右padding）
+      let menuWidth = document.querySelectorAll(
+        "div[class='sidebar-container']"
+      )[0].clientWidth
+      this.left = e.clientX - menuWidth + 10
+      this.top = e.clientY
+      this.$store.dispatch('openMenu', item)
     },
     removeTab(tabItem) {
-      this.$store.dispatch("removeTab", {
+      this.$store.dispatch('removeTab', {
         tabItem,
         fullPath: this.$route.fullPath,
         router: this.$router
-      });
+      })
     },
     removeOtherTab(tabItem) {
-      this.$store.dispatch("removeOtherTab", { tabItem, router: this.$router });
+      this.$store.dispatch('removeOtherTab', { tabItem, router: this.$router })
     },
     removeAllTab() {
-      this.$store.dispatch("removeOtherTab", {
+      this.$store.dispatch('removeOtherTab', {
         all: true,
         router: this.$router
-      });
+      })
     }
   },
   watch: {
     rightMenuShow(value) {
       if (value) {
-        document.body.addEventListener("click", () => {
-          this.rightMenuShow = false;
-        });
+        document.body.addEventListener('click', () => {
+          this.rightMenuShow = false
+        })
       } else {
-        document.body.removeEventListener("click", () => {
-          this.rightMenuShow = false;
-        });
+        document.body.removeEventListener('click', () => {
+          this.rightMenuShow = false
+        })
       }
     }
   }
-};
+}
 </script>
 <style>
 .tabnav {
@@ -161,7 +161,7 @@ $leftright: ($left, $right);
       overflow: hidden;
       &:not(:first-child) {
         padding-#{$right}: 10px;
-        min-width: 80px;
+        min-width: 30px;
       }
       a {
         @include set-value(padding, 13px);
