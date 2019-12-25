@@ -5,6 +5,7 @@ function resolve(dir) {
 }
 module.exports = {
   lintOnSave: false, //是否开启 esLint
+  productionSourceMap: false, //默认是开启的，关闭后打包的代码易读易线上调式，也可加快打包速度
   chainWebpack: config => {
     config.resolve.alias.set("@", resolve("src"));
   },
