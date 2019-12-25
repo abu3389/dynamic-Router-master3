@@ -67,14 +67,14 @@ const interceptorsResponse = service => {
       const res = response.data;
       console.log("添加响应拦截器", response);
       if (res.state !== 100) {
+        //有错误提示
         Message({
           type: "error",
           message: res.message,
           duration: 5 * 1000
         });
-      } else {
-        return res;
       }
+      return res;
     },
     error => {
       // 对响应错误做点什么
