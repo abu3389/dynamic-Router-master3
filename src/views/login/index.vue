@@ -45,9 +45,7 @@
                 ></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button class="subBtn" type="primary" @click="submitForm"
-                  >登录</el-button
-                >
+                <el-button class="subBtn" type="primary" @click="submitForm">登录</el-button>
               </el-form-item>
               <div class="smalltxt">
                 <router-link class="a" to="#">忘记密码</router-link>
@@ -57,15 +55,18 @@
               <div>演示账号密码：</div>
               <div>
                 <span>username: admin</span>&nbsp;
-                <span>password: admin</span>&nbsp; <span>role :0</span>&nbsp;
+                <span>password: admin</span>&nbsp;
+                <span>role :0</span>&nbsp;
               </div>
               <div>
                 <span>username: editor</span>&nbsp;
-                <span>password: editor</span>&nbsp; <span>role :1</span>&nbsp;
+                <span>password: editor</span>&nbsp;
+                <span>role :1</span>&nbsp;
               </div>
               <span>
                 <span>username: reader</span>&nbsp;
-                <span>password: reader</span>&nbsp; <span>role :2</span>&nbsp;
+                <span>password: reader</span>&nbsp;
+                <span>role :2</span>&nbsp;
               </span>
             </el-form>
           </el-card>
@@ -83,9 +84,7 @@
             </div>
             <div class="ewmbox">
               <div class="ewm">
-                <img
-                  src="https://img.alicdn.com/tfscom/TB1ivYYyHvpK1RjSZFqwu3XUVXa.png"
-                />
+                <img src="https://img.alicdn.com/tfscom/TB1ivYYyHvpK1RjSZFqwu3XUVXa.png" />
               </div>
               <div class="ewmicon">
                 <i class="iconfont xu-saomadenglu fa-2x iconcolor"></i>
@@ -102,64 +101,65 @@
   </div>
 </template>
 <script>
+import md5 from 'md5'
 export default {
-  name: "Login",
+  name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (value.length < 5) {
-        callback(new Error("用户名密码不能小于5位"));
+        callback(new Error('用户名密码不能小于5位'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     const validatePass = (rule, value, callback) => {
       if (value.length < 5) {
-        callback(new Error("密码不能小于5位"));
+        callback(new Error('密码不能小于5位'))
       } else {
-        callback();
+        callback()
       }
-    };
+    }
     return {
       smdl: true,
       loginForm: {
-        username: "admin",
-        password: "admin"
+        username: 'admin',
+        password: 'admin'
       },
       loginRules: {
         username: [
-          { required: true, trigger: "blur", validator: validateUsername }
+          { required: true, trigger: 'blur', validator: validateUsername }
         ],
-        password: [{ required: true, trigger: "blur", validator: validatePass }]
+        password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
       loading: false
-    };
+    }
   },
   methods: {
     submitForm() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.loading = true;
+          this.loading = true
           this.$store
-            .dispatch("Login", this.loginForm)
+            .dispatch('Login', this.loginForm)
             .then(data => {
-              this.loading = false;
+              this.loading = false
               //登录成功，跳转到后台Home主页
               if (data) {
-                this.$router.push("/");
+                this.$router.push('/')
               }
             })
             .catch(() => {
-              this.loading = false;
-            });
+              this.loading = false
+            })
         } else {
-          this.$message.error("error submit!!"); //登录失败提示错误
-          return false;
+          this.$message.error('error submit!!') //登录失败提示错误
+          return false
         }
-      });
+      })
     }
   },
   mounted() {}
-};
+}
 </script>
 <style lang="scss">
 #login {
