@@ -3,7 +3,7 @@
     <template v-for="item in menu">
       <!-- 此菜单下没有子菜单 -->
       <el-menu-item
-        v-if="!item.children && !item.hidden"
+        v-if="!item.children && item.hasOwnProperty('hidden') && !item.hidden"
         :key="item.path"
         :index="parent ? parent + '/' + item.path : item.path"
       >
@@ -13,7 +13,7 @@
 
       <!-- 此菜单下还有子菜单 -->
       <el-submenu
-        v-if="item.children && !item.hidden"
+        v-if="item.children && item.hasOwnProperty('hidden') && !item.hidden"
         :key="item.path"
         :index="parent ? parent + '/' + item.path : item.path"
       >
@@ -33,12 +33,12 @@
 
 <script>
 export default {
-  name: "SidebarItem",
-  props: ["menu", "parent"],
+  name: 'SidebarItem',
+  props: ['menu', 'parent'],
   data() {
-    return {};
+    return {}
   }
-};
+}
 </script>
 
 <style scoped>

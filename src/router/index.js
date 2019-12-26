@@ -5,32 +5,32 @@ Vue.use(Router);
 
 import Layout from "@/views/layout/layout";
 
-//如首页和登录页和一些不用权限的公用页面
+// 公用路由页面（不需要登录权限的路由页面，如：首页和登录页、注册页等一些不需要登陆权限的路由）
+// 注意注意注意：
+// 想要不需要登陆直接跳转记得在 src\permission.js 添加路由白名单，否则会被路由守卫拦截无法跳转。已登陆获取权限的用户不受影响，可以直接跳转。
+// 这部分路由有设置hidden为false的会在菜单展示即作为本地公共菜单路由,反之不写或者设置hidden为true不会展示即只作为本地公共页面路由
 export const commontRouterMap = [
+  {
+    path: "/",
+    redirect: "/home",
+    hidden: true,
+    component: Layout
+  },
   {
     path: "/login",
     hidden: true, //不在slider显示
     component: () => import("@/views/login/index")
-  },
-  {
-    path: "/",
-    component: Layout,
-    redirect: "/home",
-    name: "Home",
-    hidden: true,
-    children: [
-      {
-        path: "home",
-        component: () => import("@/views/Home")
-      }
-    ]
   }
 ];
 
-// 异步挂载的路由，已由后端获取，可以注释
+// 本地权限路由 （需要登录权限的路由页面，如：菜单路由、页面需要权限的路由）
+// 这部分路由有设置hidden为false的会在菜单展示即作为 本地 权限菜单路由,反之不写或者设置hidden为true不会展示即只作为 本地 权限页面路由
+export const localRouterMap = [];
+
+// 远程权限路由 （需要登录权限的路由页面，如：菜单路由、页面需要权限的路由）
+// 这是异步挂载的路由，由后端获取，所以这里初始化放空了
 // 远程动态加载一些需要权限的私有页面，适用于需要一个菜单管理或者页面权限管理的需求，让后端根据role来输出对应路由
-//hiden 控制是否在菜单显示
-//role 控制该角色是否有路由的跳转权限
+// 这部分路由有设置hidden为false的会在菜单展示即作为 远程 权限菜单路由,反之不会展示即只作为 远程 权限页面路由
 export const asyncRouterMap = [
   // {
   //     path: "/home",
@@ -197,7 +197,7 @@ const createRouter = () =>
     scrollBehavior: () => ({
       y: 0
     }),
-    routes: commontRouterMap
+    routes: [...commontRouterMap, ...localRouterMap] //初始化先注入公共页面路由+本地权限路由
   });
 const router = createRouter();
 
