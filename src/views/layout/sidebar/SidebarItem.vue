@@ -7,8 +7,20 @@
         :key="item.path"
         :index="parent ? parent + '/' + item.path : item.path"
       >
-        <i :class="item.meta.icon"></i>
-        <span slot="title">{{ item.meta.title }}</span>
+        <i
+          :class="
+            item.hasOwnProperty('meta') && item.meta.hasOwnProperty('icon')
+              ? item.meta.icon
+              : ''
+          "
+        ></i>
+        <span slot="title">
+          {{
+          item.hasOwnProperty("meta") && item.meta.hasOwnProperty("title")
+          ? item.meta.title
+          : item.path + "未设置菜单名称"
+          }}
+        </span>
       </el-menu-item>
 
       <!-- 此菜单下还有子菜单 -->
@@ -18,8 +30,20 @@
         :index="parent ? parent + '/' + item.path : item.path"
       >
         <template slot="title">
-          <i :class="item.meta.icon"></i>
-          <span>{{ item.meta.title }}</span>
+          <i
+            :class="
+              item.hasOwnProperty('meta') && item.meta.hasOwnProperty('icon')
+                ? item.meta.icon
+                : ''
+            "
+          ></i>
+          <span>
+            {{
+            item.hasOwnProperty("meta") && item.meta.hasOwnProperty("title")
+            ? item.meta.title
+            : item.path + "未设置菜单名称"
+            }}
+          </span>
         </template>
         <!-- 递归 -->
         <sidebar-item

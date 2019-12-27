@@ -38,6 +38,7 @@ router.beforeEach((to, from, next) => {
               .then(() => {
                 //获取动态添加的路由
                 let addRoutes = store.getters.getaddRouters;
+                console.log("过滤后的动态路由，注入", addRoutes);
                 //注入到路由
                 router.addRoutes(addRoutes); // 动态添加可访问路由表
                 // next();

@@ -48,9 +48,9 @@ const router = {
 /**
  * 递归循环路由获取属于该角色的路由
  * @param routes asyncRoutes
- * @param roles
+ * @param role
  */
-export function filterAsyncRoutes(routes, roles) {
+export function filterAsyncRoutes(routes, role) {
   const res = [];
   // 递归循环路由
   routes.forEach(route => {
@@ -59,17 +59,22 @@ export function filterAsyncRoutes(routes, roles) {
       ...route
     };
     // 判断角色是否有该路由的权限
-    if (hasPermission(roles, tmp)) {
+    if (hasPermission(role, tmp)) {
       // 有子路由继续递归
       if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, roles);
+        tmp.children = filterAsyncRoutes(tmp.children, role);
       }
-      // 判断是否隐藏菜单，如果是 true 代表该路由全部角色都不在菜单栏显示 或 false 代表该路由全部角色都在菜单栏显示, 如果是数组代表该路由数组里的角色都不在菜单栏显示
-      // 这里判断是否是数组的情况
-      if (tmp.hidden && typeof tmp.hidden !== "boolean") {
-        // 如果hidden是数组，判断是否包含该角色，包含则不在菜单栏显示，重新定义hidden为 true，反之 false
-        tmp.hidden = tmp.hidden.includes(roles) ? true : false;
+
+      // 判断是否隐藏菜单，
+      //如果是 true 代表该路由全部角色都不在菜单栏显示 或 false 代表该路由全部角色都在菜单栏显示,
+      //如果是 数组 代表该路由数组里的角色都不在菜单栏显示
+
+      // 这里判断是是数组的情况
+      if (tmp.hidden && Array.isArray(tmp.hidden)) {
+        // 如果hidden是数组，判断是否包含该角色，包含则不在菜单栏显示，重新定义hidden为 true，反之 false 展示
+        tmp.hidden = tmp.hidden.includes(role) ? true : false;
       }
+
       // 将满足条件且处理后的路由数据保存起来
       res.push(tmp);
     }
@@ -79,12 +84,12 @@ export function filterAsyncRoutes(routes, roles) {
 
 /**
  * 判断角色是否有该路由的权限
- * @param roles //对应的角色信息
+ * @param role //对应的角色信息
  * @param route //要查找的路由对象
  */
-function hasPermission(roles, route) {
+function hasPermission(role, route) {
   if (route.meta && route.meta.role && route.meta.role.length > 0) {
-    return route.meta.role.includes(roles);
+    return route.meta.role.includes(role);
   } else {
     return true;
   }
