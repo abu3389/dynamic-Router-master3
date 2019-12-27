@@ -83,6 +83,7 @@ const user = {
             commit("SET_ROLES", "");
             commit("SET_USERNAME", "");
             commit("removeAllTab");
+            commit("CLEAR_ADDROUTERS", []); //清除动态注入的路由
             cookie.remove(app);
             cookie.remove(userName);
             resetRouter();

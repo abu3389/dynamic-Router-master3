@@ -1,11 +1,18 @@
-import { asyncRouterMap, commontRouterMap, errorRouterMap } from "@/router";
+import {
+  asyncRouterMap,
+  commontRouterMap,
+  localRouterMap,
+  errorRouterMap
+} from "@/router";
 import { getMenuList } from "@/api/test/test";
 const router = {
   state: {
+    //当前已存在的路由列表
     routers: {
-      ...commontRouterMap
-    }, //当前已存在的路由列表
-    addRouters: [] //动态添加的路由列表
+      ...commontRouterMap //公共页面路由
+    },
+    //动态添加的路由列表
+    addRouters: []
   },
   getters: {
     //获取动态添加的路由列表
@@ -14,11 +21,20 @@ const router = {
     getrouters: state => state.routers
   },
   mutations: {
-    SET_ROUTERS: (state, addRouters) => {
-      //保存属于该角色动态添加的权限路由（菜单路由+错误页路由都是动态添加的）
-      state.addRouters = addRouters.concat(errorRouterMap);
-      //将公共路由与动态添加的路由合并保存
-      state.routers = commontRouterMap.concat(state.addRouters);
+    //归并路由
+    SET_ROUTERS: (state, data) => {
+      let { accessedRouters: addRouters, roles } = data;
+      //处理和过滤路由的meta参数
+      let commontRouters = filterAsyncRoutes(commontRouterMap, roles); //本地公共路由
+      let localRouters = filterAsyncRoutes(localRouterMap, roles); //本地权限路由
+      //保存属于该角色动态添加的权限路由（远程菜单路由+本地权限路由都是动态添加的+错误页路由）
+      state.addRouters = [...addRouters, ...localRouters, ...errorRouterMap]; //(错误路由一定要放在最后添加，否则页面会被错误路由劫持)
+      //将当前已存在的路由与动态添加的路由合并保存
+      state.routers = [...commontRouters, ...state.addRouters];
+    },
+    //清除动态添加的路由
+    CLEAR_ADDROUTERS: state => {
+      state.addRouters = [];
     }
   },
   actions: {
@@ -37,7 +53,7 @@ const router = {
           let accessedRouters = filterAsyncRoutes(newRouters, roles);
 
           // 保存允许访问的路由
-          commit("SET_ROUTERS", accessedRouters);
+          commit("SET_ROUTERS", { accessedRouters, roles });
           resolve();
         });
       });

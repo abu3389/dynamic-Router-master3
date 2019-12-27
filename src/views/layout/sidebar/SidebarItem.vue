@@ -1,10 +1,10 @@
 <template>
   <div class="menu-wrapper">
-    <template v-for="item in menu">
+    <template v-for="(item, index) in menu">
       <!-- 此菜单下没有子菜单 -->
       <el-menu-item
         v-if="!item.children && item.hasOwnProperty('hidden') && !item.hidden"
-        :key="item.path"
+        :key="item.index"
         :index="parent ? parent + '/' + item.path : item.path"
       >
         <i
@@ -26,7 +26,7 @@
       <!-- 此菜单下还有子菜单 -->
       <el-submenu
         v-if="item.children && item.hasOwnProperty('hidden') && !item.hidden"
-        :key="item.path"
+        :key="item.index"
         :index="parent ? parent + '/' + item.path : item.path"
       >
         <template slot="title">
