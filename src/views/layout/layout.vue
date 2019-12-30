@@ -3,7 +3,7 @@
     <sidebar class="sidebar-container"></sidebar>
     <div class="main-container">
       <my-header></my-header>
-      <router-view></router-view>
+      <router-view class="viewStyle"></router-view>
     </div>
   </div>
 </template>
@@ -33,5 +33,8 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+  .viewStyle {
+    padding: 15px;
+  }
 }
 </style>

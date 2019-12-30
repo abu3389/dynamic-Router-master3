@@ -89,6 +89,7 @@ export default {
 .tabnav {
   display: inline-block;
   transition: all 0.5s;
+  border-radius: 10px 0;
 }
 
 .list-enter, .list-leave-to
