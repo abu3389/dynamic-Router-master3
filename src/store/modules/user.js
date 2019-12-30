@@ -2,14 +2,16 @@ import mockTest from "@/api/test/mock";
 import { resetRouter } from "@/router";
 
 // import cookie from "@/utils/cookie.js";
-import cookie from "js-cookie";
-let app = "my-vue-admin";
-let userName = "userName";
+// import cookie from "js-cookie";
+import GLOBAL from "@/utils/constVal";
+
+let app = GLOBAL.APP_NAME;
+let userName = app + "userName";
 const user = {
   state: {
-    token: cookie.get(app), //获取token
+    token: localStorage.getItem(app), //获取token
     rolename: "", //用户角色名称
-    username: cookie.get(userName), //用户昵称
+    username: localStorage.getItem(userName), //用户昵称
     avatar: "", //用户头像
     roles: "" //用户角色类型
   },
@@ -44,9 +46,9 @@ const user = {
       return new Promise((resolve, reject) => {
         mockTest.login(username, userInfo.password).then(response => {
           if (response) {
-            // cookie.setCookie(app, response.result, 60); //60为 1分钟
-            cookie.set(userName, username);
-            cookie.set(app, response.result);
+            // localStorage.setItem(app, response.result, 60); //60为 1分钟
+            localStorage.setItem(userName, username);
+            localStorage.setItem(app, response.result);
             commit("SET_USERNAME", username);
             commit("SET_TOKEN", response.result);
             resolve(response);
@@ -84,8 +86,8 @@ const user = {
             commit("SET_USERNAME", "");
             commit("removeAllTab");
             commit("CLEAR_ADDROUTERS", []); //清除动态注入的路由
-            cookie.remove(app);
-            cookie.remove(userName);
+            localStorage.removeItem(app);
+            localStorage.removeItem(userName);
             resetRouter();
             resolve();
           })
@@ -99,7 +101,7 @@ const user = {
       return new Promise(resolve => {
         commit("SET_TOKEN", "");
         commit("SET_ROLES", "");
-        cookie.remove(app);
+        localStorage.removeItem(app);
         resolve();
       });
     }
