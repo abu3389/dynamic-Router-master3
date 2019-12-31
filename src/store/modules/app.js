@@ -9,7 +9,7 @@ const app = {
     tabnavBox: [
       {
         title: "主页",
-        path: "/home"
+        path: "/home/index"
       }
     ]
   },
@@ -52,12 +52,12 @@ const app = {
     removeOtherTab(state, arg) {
       state.tabnavBox = [
         {
-          title: "Home",
-          path: "/home"
+          title: "主页",
+          path: "/home/index"
         }
       ];
       if (arg.all) {
-        arg.router.push("/home");
+        arg.router.push("/home/index");
         this.commit("setLocalStorage", state.tabnavBox);
         return false;
       }
