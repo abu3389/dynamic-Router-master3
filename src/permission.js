@@ -5,7 +5,7 @@ import store from "./store/";
 const whiteList = ["/login"]; // 不重定向白名单
 
 // main.js 路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   console.log("路由拦截", to.path);
   console.log("store.getters.gettoken", store.getters.gettoken);
   // 判断是否有token
@@ -25,32 +25,17 @@ router.beforeEach((to, from, next) => {
         console.log(
           "没有用户角色信息，动态路由未注入过，拉取用户信息，添加动态路由后再跳转访问的路由"
         );
-        store
-          .dispatch("GetInfo")
-          .then(res => {
-            // 拉取info
-            const roles = res.result.roles;
-            //根据角色 生成响应的路由
-            store
-              .dispatch("GenerateRoutes", {
-                roles
-              })
-              .then(() => {
-                //获取动态添加的路由
-                let addRoutes = store.getters.getaddRouters;
-                console.log("过滤后的动态路由，注入", addRoutes);
-                //注入到路由
-                router.addRoutes(addRoutes); // 动态添加可访问路由表
-                // next();
-                next({
-                  ...to,
-                  replace: true
-                }); // hack方法 确保addRoutes已完成
-              });
-          })
-          .catch(err => {
-            console.log(err);
-          });
+        // 获取用户信息
+        await store.dispatch("GetInfo");
+        // 获取角色信息
+        const role = store.getters.getroles;
+        //根据角色 生成响应的路由
+        await store.dispatch("GenerateRoutes", { role });
+        // hack方法 确保addRoutes已完成
+        next({
+          ...to,
+          replace: true
+        });
       } else {
         console.log(
           "有用户角色信息，动态路由已经注入过，不需要拉取用户信息直接让访问的路由通过"

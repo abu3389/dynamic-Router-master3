@@ -71,7 +71,7 @@ const interceptorsResponse = service => {
         Message({
           type: "error",
           message: res.message,
-          duration: 5 * 1000
+          duration: 3 * 1000
         });
       }
       return res;

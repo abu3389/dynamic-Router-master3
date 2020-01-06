@@ -4,6 +4,7 @@ import {
   localRouterMap,
   errorRouterMap
 } from "@/router";
+import Router from "@/router/";
 import { getMenuList } from "@/api/test/test";
 const router = {
   state: {
@@ -23,10 +24,11 @@ const router = {
   mutations: {
     //归并路由
     SET_ROUTERS: (state, data) => {
-      let { accessedRouters: addRouters, roles } = data;
+      let { accessedRouters: addRouters, role } = data;
       //处理和过滤路由的meta参数
-      let commontRouters = filterAsyncRoutes(commontRouterMap, roles); //本地公共路由
-      let localRouters = filterAsyncRoutes(localRouterMap, roles); //本地权限路由
+      let commontRouters = filterAsyncRoutes(commontRouterMap, role); //本地公共路由
+      let localRouters = filterAsyncRoutes(localRouterMap, role); //本地权限路由
+      console.log("localRouters", localRouters);
       //保存属于该角色动态添加的权限路由（远程菜单路由+本地权限路由都是动态添加的+错误页路由）
       state.addRouters = [...addRouters, ...localRouters, ...errorRouterMap]; //(错误路由一定要放在最后添加，否则页面会被错误路由劫持)
       //将当前已存在的路由与动态添加的路由合并保存
@@ -39,9 +41,9 @@ const router = {
   },
   actions: {
     // 根据角色 生成响应的路由
-    GenerateRoutes({ commit }, data) {
+    GenerateRoutes({ state, commit }, data) {
       return new Promise(resolve => {
-        const { roles } = data;
+        const { role } = data;
         let send = {
           token: "123456",
           id: "asdishdhaksdh"
@@ -50,10 +52,17 @@ const router = {
           // 处理远程获取的路由
           let newRouters = importComponents(res.data);
           // 递归循环路由获取该角色的允许的路由并返回
-          let accessedRouters = filterAsyncRoutes(newRouters, roles);
-
+          let accessedRouters = filterAsyncRoutes(newRouters, role);
           // 保存允许访问的路由
-          commit("SET_ROUTERS", { accessedRouters, roles });
+          commit("SET_ROUTERS", { accessedRouters, role });
+          //获取动态添加的路由
+          let addRoutes = state.addRouters;
+          console.log("过滤后的动态路由，注入", addRoutes);
+
+          //注入到路由
+          Router.addRoutes(addRoutes); // 动态添加可访问路由表
+          console.log("所有生效的路由：", Router.options.routes);
+
           resolve();
         });
       });
