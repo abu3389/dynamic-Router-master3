@@ -66,12 +66,14 @@ Vue.directive("permission", {
     //获取当前角色类型
     let nowRoleType = store.getters.getroles;
     //获取当前路由需要权限的按钮组
+    console.log("router.currentRoute", router.currentRoute);
     let btnGroup = router.currentRoute.meta.hasOwnProperty("btnGroup")
       ? router.currentRoute.meta.btnGroup
       : [];
     //判断当前角色是否具有该按钮权限
     let permission = false;
     let nowBtnInfo = {};
+    console.log("btnGroup", btnGroup);
     btnGroup.forEach((item, index) => {
       if (item.name === btnName) {
         //如果匹配到按钮名称
@@ -81,12 +83,26 @@ Vue.directive("permission", {
         }
       }
     });
+    console.log("nowBtnInfo", nowBtnInfo);
     //必须等dom更新完毕才去获取父节点不然parentNode获取不到
     Vue.nextTick(() => {
       //有权限返回按钮名称，无权限删除子元素，相当于v-if
-      return permission
-        ? (el.lastChild.innerText = nowBtnInfo.content)
-        : el.parentNode.removeChild(el);
+      if (permission) {
+        if (nowBtnInfo.insert) {
+          el.lastChild.innerText = nowBtnInfo.content; //注入按钮、区块名称
+          var icon = document.createElement("i"); //创建一个i标签,用来存放图标
+          icon.className = nowBtnInfo.icon; //设置标签class属性
+          //  insertBefore()函数用法：
+          // 新元素：你想插入的元素(newElement)
+          // 目标元素：你想把这个元素插入到哪个元素(targetElement)
+          // 父元素：目标元素的父元素(parentELement)
+          el.insertBefore(icon, el.lastChild); //注入图标标签
+        }
+        return true;
+      } else {
+        el.parentNode.removeChild(el);
+        return false;
+      }
     });
   }
 });

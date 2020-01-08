@@ -1,5 +1,6 @@
 @import './variables.scss';
 @import './sidebar.scss';
+
 body {
     height: 100%;
     -moz-osx-font-smoothing: grayscale;
@@ -14,5 +15,7 @@ html {
 }
 
 #app {
+    width: 100%;
     height: 100%;
+    overflow: hidden;
 }

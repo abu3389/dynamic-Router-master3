@@ -11,6 +11,7 @@ import Layout from "@/views/layout/layout";
 // 【设置菜单注意事项】
 //  菜单必须先包裹一层父路由作为目录，其组件指向登录后的页面视图容器Layout
 // hidden (默认为true，不在菜单显示) 设置为 false 可以在菜单显示（记得设置菜单的meta可选参数）；设置为 true 或不设置不会在菜单显示；设置为 ['角色名1','角色名2'] 包含的角色不会在菜单显示
+// alone (默认为true，当目录下只有一个菜单时显示目录) 设置为 false 当目录下只有一个菜单时不显示目录，直接显示该菜单
 // meta{参数} (可追加自定义参数，也可选内置参数：【title:"" //菜单名称 】；【icon:"" //图标名称（采用element的icon）】；【 role:['角色名1','角色名2'] //可访问的角色名称，不写默认都可访问】)
 export const commontRouterMap = [
   {
@@ -30,6 +31,7 @@ export const commontRouterMap = [
 // 【设置菜单注意事项】
 //  菜单必须先包裹一层父路由作为目录，其组件指向登录后的页面视图容器Layout
 // hidden (默认为true，不在菜单显示) 设置为 false 可以在菜单显示（记得设置菜单的meta可选参数）；设置为 true 或不设置不会在菜单显示；设置为 ['角色名1','角色名2'] 包含的角色不会在菜单显示
+// alone (默认为true，当目录下只有一个菜单时显示目录) 设置为 false 当目录下只有一个菜单时不显示目录，直接显示该菜单
 // meta{参数} (可追加自定义参数，也可选内置参数：【title:"" //菜单名称 】；【icon:"" //图标名称（采用element的icon）】；【 role:['角色名1','角色名2'] //可访问的角色名称，不写默认都可访问】)
 export const localRouterMap = [
   // 本地后台菜单路由
@@ -71,19 +73,16 @@ export const localRouterMap = [
   {
     path: "/adminPage",
     name: "adminPage",
-    hidden: true,
     component: Layout,
     children: [
       {
         path: "page1",
         name: "page1",
-        hidden: true,
         component: () => import("@/views/userpower1/1-1")
       },
       {
         path: "page2",
         name: "page2",
-        hidden: true,
         component: () => import("@/views/userpower1/1-2")
       }
     ]
@@ -96,6 +95,7 @@ export const localRouterMap = [
 // 【设置菜单注意事项】
 //  菜单必须先包裹一层父路由作为目录，其组件指向登录后的页面视图容器Layout
 // hidden (默认为true，不在菜单显示) 设置为 false 可以在菜单显示（记得设置菜单的meta可选参数）；设置为 true 或不设置不会在菜单显示；设置为 ['角色名1','角色名2'] 包含的角色不会在菜单显示
+// alone (默认为true，当目录下只有一个菜单时显示目录) 设置为 false 当目录下只有一个菜单时不显示目录，直接显示该菜单
 // meta{参数} (可追加自定义参数，也可选内置参数：【title:"" //菜单名称 】；【icon:"" //图标名称（采用element的icon）】；【 role:['角色名1','角色名2'] //可访问的角色名称，不写默认都可访问】)
 export const asyncRouterMap = [
   // {
@@ -271,7 +271,6 @@ export const errorRouterMap = [
   {
     path: "/*",
     name: "error-404",
-    hidden: true,
     meta: {
       title: "404-页面不存在"
     },
@@ -280,7 +279,6 @@ export const errorRouterMap = [
   {
     path: "403",
     name: "error-403",
-    hidden: true,
     meta: {
       title: "403-权限不足"
     },
@@ -289,7 +287,6 @@ export const errorRouterMap = [
   {
     path: "500",
     name: "error-500",
-    hidden: true,
     meta: {
       title: "500-服务端错误"
     },

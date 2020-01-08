@@ -1,103 +1,81 @@
 <template>
-  <div id="login">
-    <div class="loginConbox">
-      <div class="header">
-        <!-- <div class="logo">
-          <img src="../../assets/logo.png" />
-        </div>-->
+  <div class="login-wrap">
+    <div class="ms-title">vue-追寻权限管理后台模板</div>
+    <p class="ms-title2">(elementui+viewDesign+vue-cli3)</p>
+    <el-card shadow="always" class="login-module" v-if="smdl">
+      <div slot="header" class="clearfix formTitlt">
+        <span>密码登录</span>
+        <span class="titIconbox">
+          <i class="iconfont xu-saomadenglu2 fa-lg iconcolor"></i>
+          <i class="iconfont xu-saomadenglu01 el-icon--right fa-lg pointer" @click="smdl = !smdl"></i>
+        </span>
       </div>
-      <div class="loginBox">
-        <div class="loginCon">
-          <p class="title">vue-追寻权限管理后台模板</p>
-          <p class="title">前台: vue-cli3 + element-ui</p>
-          <el-card shadow="always" class="login-module" v-if="smdl">
-            <div slot="header" class="clearfix formTitlt">
-              <span>密码登录</span>
-              <span class="titIconbox">
-                <i class="iconfont xu-saomadenglu2 fa-lg iconcolor"></i>
-                <i
-                  class="iconfont xu-saomadenglu01 el-icon--right fa-lg pointer"
-                  @click="smdl = !smdl"
-                ></i>
-              </span>
-            </div>
-            <el-form
-              :model="loginForm"
-              ref="loginForm"
-              status-icon
-              label-width="100px"
-              class="demo-ruleForm"
-            >
-              <el-form-item prop="username">
-                <el-input
-                  type="text"
-                  v-model="loginForm.username"
-                  auto-complete="off"
-                  placeholder="请输入登录账号"
-                ></el-input>
-              </el-form-item>
-              <el-form-item prop="password">
-                <el-input
-                  type="password"
-                  v-model="loginForm.password"
-                  auto-complete="off"
-                  placeholder="请输入登录密码"
-                ></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button class="subBtn" type="primary" @click="submitForm">登录</el-button>
-              </el-form-item>
-              <div class="smalltxt">
-                <router-link class="a" to="#">忘记密码</router-link>
-                <router-link class="a" to="#">忘记会员名</router-link>
-                <router-link class="a" to="#">免费注册</router-link>
-              </div>
-              <div>演示账号密码：</div>
-              <div>
-                <span>username: admin</span>&nbsp;
-                <span>password: admin</span>&nbsp;
-                <span>role :0</span>&nbsp;
-              </div>
-              <div>
-                <span>username: editor</span>&nbsp;
-                <span>password: editor</span>&nbsp;
-                <span>role :1</span>&nbsp;
-              </div>
-              <span>
-                <span>username: reader</span>&nbsp;
-                <span>password: reader</span>&nbsp;
-                <span>role :2</span>&nbsp;
-              </span>
-            </el-form>
-          </el-card>
+      <el-form :model="loginForm" ref="loginForm" status-icon label-width="100px">
+        <el-form-item prop="username">
+          <el-input
+            type="text"
+            v-model="loginForm.username"
+            auto-complete="off"
+            placeholder="请输入登录账号"
+          ></el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            type="password"
+            v-model="loginForm.password"
+            auto-complete="off"
+            placeholder="请输入登录密码"
+          ></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button class="subBtn" type="primary" @click="submitForm">登录</el-button>
+        </el-form-item>
+        <div class="smalltxt">
+          <router-link class="a" to="#">忘记密码</router-link>
+          <router-link class="a" to="#">忘记会员名</router-link>
+          <router-link class="a" to="#">免费注册</router-link>
+        </div>
+        <div>演示账号密码：</div>
+        <div>
+          <span>username: admin</span>&nbsp;
+          <span>password: admin</span>&nbsp;
+          <span>role :0</span>&nbsp;
+        </div>
+        <div>
+          <span>username: editor</span>&nbsp;
+          <span>password: editor</span>&nbsp;
+          <span>role :1</span>&nbsp;
+        </div>
+        <span>
+          <span>username: reader</span>&nbsp;
+          <span>password: reader</span>&nbsp;
+          <span>role :2</span>&nbsp;
+        </span>
+      </el-form>
+    </el-card>
 
-          <el-card shadow="always" class="login-module" v-else>
-            <div slot="header" class="clearfix formTitlt">
-              <span>扫码登录</span>
-              <span class="titIconbox">
-                <i class="iconfont xu-mimadenglu1 fa-lg iconcolor"></i>
-                <i
-                  class="iconfont xu-imagevector el-icon--right fa-lg pointer"
-                  @click="smdl = !smdl"
-                ></i>
-              </span>
-            </div>
-            <div class="ewmbox">
-              <div class="ewm">
-                <img src="https://img.alicdn.com/tfscom/TB1ivYYyHvpK1RjSZFqwu3XUVXa.png" />
-              </div>
-              <div class="ewmicon">
-                <i class="iconfont xu-saomadenglu fa-2x iconcolor"></i>
-                <p>打开 微信 扫一扫登录</p>
-              </div>
-              <div class="smalltxt">
-                <router-link class="a" to="#">免费注册</router-link>
-              </div>
-            </div>
-          </el-card>
+    <el-card shadow="always" class="login-module" v-else>
+      <div slot="header" class="clearfix formTitlt">
+        <span>扫码登录</span>
+        <span class="titIconbox">
+          <i class="iconfont xu-mimadenglu1 fa-lg iconcolor"></i>
+          <i class="iconfont xu-imagevector el-icon--right fa-lg pointer" @click="smdl = !smdl"></i>
+        </span>
+      </div>
+      <div class="ewmbox">
+        <div class="ewm">
+          <img src="https://img.alicdn.com/tfscom/TB1ivYYyHvpK1RjSZFqwu3XUVXa.png" />
+        </div>
+        <div class="ewmicon">
+          <i class="iconfont xu-saomadenglu fa-2x iconcolor"></i>
+          <p>打开 微信 扫一扫登录</p>
+        </div>
+        <div class="smalltxt">
+          <router-link class="a" to="#">免费注册</router-link>
         </div>
       </div>
-    </div>
+    </el-card>
+    <vue-particles color="#fff" :linesWidth="2"></vue-particles>
   </div>
 </template>
 <script>
@@ -162,119 +140,74 @@ export default {
 }
 </script>
 <style lang="scss">
-#login {
+.login-wrap {
+  position: relative;
   width: 100%;
   height: 100%;
-  background-color: #2d3a4b;
-  .loginConbox {
-    background: #2d3a4b;
+  background: linear-gradient(
+    -45deg,
+    rgba(9, 69, 138, 0.2),
+    rgba(68, 155, 255, 0.7),
+    rgba(117, 113, 251, 0.7),
+    rgba(68, 155, 255, 0.7),
+    rgba(9, 69, 138, 0.2)
+  );
+  background-size: 400% 400%;
+  -webkit-animation: Gradient 15s ease infinite;
+  -moz-animation: Gradient 15s ease infinite;
+  animation: Gradient 15s ease infinite;
+  .ms-title {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    margin-top: -230px;
+    text-align: center;
+    font-size: 30px;
+    color: #fff;
   }
-  .header {
-    height: 60px;
-    position: relative;
-    background: #2d3a4b;
-    /*border-bottom: 1px solid rgba(255, 255, 255, 0.3);*/
-    .logo {
-      margin-left: 30px;
-      width: 500px;
-      float: left;
-      height: 40px;
-      padding-top: 10px;
-      img {
-        height: 100%;
-      }
-    }
+  .ms-title2 {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    margin-top: -185px;
+    text-align: center;
+    font-size: 20px;
+    color: #fff;
   }
+  .login-module {
+    width: 380px;
+    min-height: 310px;
+    border: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -150px 0 0 -190px;
+    border-radius: 5px;
+    background: #fff;
 
-  .loginBox {
-    .iconcolor {
-      color: #409eff;
-    }
+    .formTitlt {
+      font-size: 18px;
+      font-weight: 400;
 
-    padding: 74px 0 118px;
+      .titIconbox {
+        float: right;
 
-    .loginCon {
-      width: 990px;
-      margin: auto;
-      position: relative;
-      height: 388px;
-
-      .el-card__header {
-        border-bottom: 0px;
-      }
-      .title {
-        font-size: 36px;
-        font-weight: 600;
-        color: #ffffff;
-        width: 500px;
-        float: left;
-        margin-top: 0px;
-        &:first-child {
-          font-size: 34px;
-          margin-top: 50px;
-          margin-bottom: 30px;
-        }
-      }
-      .login-module {
-        width: 380px;
-        min-height: 310px;
-        margin-top: 60px;
-        border: none;
-        position: absolute;
-        right: 0;
-
-        .formTitlt {
-          font-size: 18px;
-          font-weight: 400;
-
-          .titIconbox {
-            float: right;
-
-            .pointer {
-              cursor: pointer;
-            }
-          }
-        }
-
-        .smalltxt {
-          text-align: right;
-
-          .a {
-            text-decoration: none;
-            color: #999999;
-            font-size: 12px;
-            margin-left: 8px;
-          }
-        }
-      }
-
-      .el-form-item__content {
-        margin-left: 0px !important;
-
-        .subBtn {
-          width: 100%;
+        .pointer {
+          cursor: pointer;
         }
       }
     }
 
-    .el-input__inner,
-    .el-button,
-    .el-card,
-    .el-message {
-      border-radius: 0px !important;
-    }
+    .smalltxt {
+      text-align: right;
 
-    .el-form-item__content .ico {
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      z-index: 999;
-      width: 40px;
-      height: 39px;
-      text-align: center;
-      border-right: 1px solid #ccc;
+      .a {
+        text-decoration: none;
+        color: #999999;
+        font-size: 12px;
+        margin-left: 8px;
+      }
     }
-
     .ewmbox {
       width: 100%;
       height: 240px;
@@ -307,6 +240,67 @@ export default {
         }
       }
     }
+  }
+  .el-form-item__content {
+    margin-left: 0px !important;
+
+    .subBtn {
+      width: 100%;
+    }
+  }
+
+  .el-input__inner,
+  .el-button,
+  .el-card,
+  .el-message {
+    border-radius: 0px !important;
+  }
+
+  .el-form-item__content .ico {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 999;
+    width: 40px;
+    height: 39px;
+    text-align: center;
+    border-right: 1px solid #ccc;
+  }
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 </style>

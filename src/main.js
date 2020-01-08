@@ -14,11 +14,16 @@ import "font-awesome/css/font-awesome.css";
 import ViewUI from "view-design";
 import "view-design/dist/styles/iview.css";
 
+//配置粒子动画特效
+import VueParticles from "vue-particles";
+
+//全局样式
 import "normalize.css/normalize.css"; // A modern alternative to CSS resets
 import "@/styles/index.scss"; // global css
 
 Vue.use(ElementUI);
 Vue.use(ViewUI);
+Vue.use(VueParticles);
 
 Vue.config.productionTip = false;
 
