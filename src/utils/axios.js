@@ -65,18 +65,29 @@ const interceptorsResponse = service => {
     response => {
       // 对响应数据做点什么
       const res = response.data;
-      console.log("添加响应拦截器", response);
-      if (res.state !== 100) {
-        //有错误提示
-        Message({
-          type: "error",
-          message: res.message,
-          duration: 3 * 1000
-        });
-      }
+      // console.log("添加响应拦截器", response);
+      // if (res.state !== 100) {
+      //   //有错误提示
+      //   Message({
+      //     type: "error",
+      //     message: res.message,
+      //     duration: 3 * 1000
+      //   });
+      //   //检测是否登录超时,301登录超时状态码
+      //   if (res.state === 301) {
+      //     //校测到超时，主动退出登录
+      //     store.dispatch("LogOut");
+      //   }
+      // }
       return res;
     },
     error => {
+      //有错误提示
+      Message({
+        type: "error",
+        message: "服务器请求无响应！请联系后端处理。错误信息：" + error,
+        duration: 3 * 1000
+      });
       // 对响应错误做点什么
       return Promise.reject(error);
     }
