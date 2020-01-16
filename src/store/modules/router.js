@@ -86,11 +86,6 @@ export function filterAsyncRoutes(routes, role) {
     };
     // 判断角色是否有该路由的权限
     if (hasPermission(role, tmp)) {
-      // 有子路由继续递归
-      if (tmp.children) {
-        tmp.children = filterAsyncRoutes(tmp.children, role);
-      }
-
       // 判断是否隐藏菜单，
       //如果是 true 代表该路由全部角色都不在菜单栏显示 或 false 代表该路由全部角色都在菜单栏显示,
       //如果是 数组 代表该路由数组里的角色都不在菜单栏显示
@@ -117,6 +112,11 @@ export function filterAsyncRoutes(routes, role) {
 
       // 将满足条件且处理后的路由数据保存起来
       res.push(tmp);
+
+      // 有子路由继续递归
+      if (tmp.hasOwnProperty("children") && tmp.children.length > 0) {
+        tmp.children = filterAsyncRoutes(tmp.children, role);
+      }
     }
   });
   return res;

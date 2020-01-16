@@ -54,7 +54,8 @@
           item.children &&
             !item.hidden &&
             (item.children.length > 1 ||
-              (item.children.length = 1 && !item.alone))
+              (item.children.length =
+                1 && !item.alone && typeof item.children[0] !== 'undefined'))
         "
         :key="item.path"
         :index="parent ? parent + '/' + item.path : item.path"
@@ -85,6 +86,9 @@ export default {
   props: ['menu', 'parent'],
   data() {
     return {}
+  },
+  mounted() {
+    // console.log('this.menu', this.menu)
   }
 }
 </script>
