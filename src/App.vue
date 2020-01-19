@@ -9,7 +9,13 @@
   margin: 0px;
   padding: 0px;
 }
-
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 body {
   background-color: #f2f2f2;
   font-size: 14px;

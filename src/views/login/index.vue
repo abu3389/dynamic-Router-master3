@@ -75,7 +75,7 @@
         </div>
       </div>
     </el-card>
-    <vue-particles color="#fff" :linesWidth="2"></vue-particles>
+    <vue-particles color="#fff" :linesWidth="2" style="height: 100%;width: 100%;"></vue-particles>
   </div>
 </template>
 <script>
