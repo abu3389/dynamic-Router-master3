@@ -21,7 +21,7 @@
       <el-menu-item
         v-if="
           item.children &&
-            item.children.length == 1 &&
+            item.children.length === 1 &&
             !item.hidden &&
             item.alone
         "
@@ -32,13 +32,11 @@
             : item.path + '/' + item.children[0].path
         "
       >
-        <i
-          :class="
+        <i :class="
             item.children[0].meta.hasOwnProperty('icon')
               ? item.children[0].meta.icon
               : ''
-          "
-        ></i>
+          "></i>
         <span slot="title">
           {{
           item.children[0].meta.hasOwnProperty("title")
@@ -54,8 +52,7 @@
           item.children &&
             !item.hidden &&
             (item.children.length > 1 ||
-              (item.children.length =
-                1 && !item.alone && typeof item.children[0] !== 'undefined'))
+              (item.children.length === 1 && !item.alone && typeof(item.children[0])!=='undefined'))
         "
         :key="item.path"
         :index="parent ? parent + '/' + item.path : item.path"
@@ -70,12 +67,12 @@
             }}
           </span>
         </template>
-        <!-- 递归 -->
         <sidebar-item
           :menu="item.children"
           :parent="parent ? parent + '/' + item.path : item.path"
         />
       </el-submenu>
+        <!-- 递归 -->
     </template>
   </div>
 </template>
@@ -86,9 +83,6 @@ export default {
   props: ['menu', 'parent'],
   data() {
     return {}
-  },
-  mounted() {
-    // console.log('this.menu', this.menu)
   }
 }
 </script>

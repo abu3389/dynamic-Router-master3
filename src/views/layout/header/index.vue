@@ -43,12 +43,20 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { check_ispc } from '@/utils/tools.js'
 import tabNav from '@/components/layout/tabNav'
 import fullScreen from '@/components/layout/fullScreen'
+
 export default {
   components: { tabNav, fullScreen },
   data() {
     return {}
+  },
+  mounted () {
+    //如果不是pc端，那就收缩菜单
+    if(!check_ispc()){
+      this.toggleSideBar()
+    }
   },
   methods: {
     //展开或缩小菜单

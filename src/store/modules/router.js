@@ -81,9 +81,7 @@ export function filterAsyncRoutes(routes, role) {
   // 递归循环路由
   routes.forEach(route => {
     // 展开当前路由
-    const tmp = {
-      ...route
-    };
+    const tmp = route;
     // 判断角色是否有该路由的权限
     if (hasPermission(role, tmp)) {
       // 判断是否隐藏菜单，
