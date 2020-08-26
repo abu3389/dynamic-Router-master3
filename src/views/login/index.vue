@@ -2,15 +2,30 @@
   <div class="login-wrap">
     <div class="ms-title">vue-追寻权限管理后台模板</div>
     <p class="ms-title2">(elementui+viewDesign+vue-cli3)</p>
-    <el-card shadow="always" class="login-module" v-if="smdl">
-      <div slot="header" class="clearfix formTitlt">
+    <el-card
+      shadow="always"
+      class="login-module"
+      v-if="smdl"
+    >
+      <div
+        slot="header"
+        class="clearfix formTitlt"
+      >
         <span>密码登录</span>
         <span class="titIconbox">
           <i class="iconfont xu-saomadenglu2 fa-lg iconcolor"></i>
-          <i class="iconfont xu-saomadenglu01 el-icon--right fa-lg pointer" @click="smdl = !smdl"></i>
+          <i
+            class="iconfont xu-saomadenglu01 el-icon--right fa-lg pointer"
+            @click="smdl = !smdl"
+          ></i>
         </span>
       </div>
-      <el-form :model="loginForm" ref="loginForm" status-icon label-width="100px">
+      <el-form
+        :model="loginForm"
+        ref="loginForm"
+        status-icon
+        label-width="100px"
+      >
         <el-form-item prop="username">
           <el-input
             type="text"
@@ -28,12 +43,25 @@
           ></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="subBtn" type="primary" @click="submitForm">登录</el-button>
+          <el-button
+            class="subBtn"
+            type="primary"
+            @click="submitForm"
+          >登录</el-button>
         </el-form-item>
         <div class="smalltxt">
-          <router-link class="a" to="#">忘记密码</router-link>
-          <router-link class="a" to="#">忘记会员名</router-link>
-          <router-link class="a" to="#">免费注册</router-link>
+          <router-link
+            class="a"
+            to="#"
+          >忘记密码</router-link>
+          <router-link
+            class="a"
+            to="#"
+          >忘记会员名</router-link>
+          <router-link
+            class="a"
+            to="#"
+          >免费注册</router-link>
         </div>
         <div>演示账号密码：</div>
         <div>
@@ -54,12 +82,22 @@
       </el-form>
     </el-card>
 
-    <el-card shadow="always" class="login-module" v-else>
-      <div slot="header" class="clearfix formTitlt">
+    <el-card
+      shadow="always"
+      class="login-module"
+      v-else
+    >
+      <div
+        slot="header"
+        class="clearfix formTitlt"
+      >
         <span>扫码登录</span>
         <span class="titIconbox">
           <i class="iconfont xu-mimadenglu1 fa-lg iconcolor"></i>
-          <i class="iconfont xu-imagevector el-icon--right fa-lg pointer" @click="smdl = !smdl"></i>
+          <i
+            class="iconfont xu-imagevector el-icon--right fa-lg pointer"
+            @click="smdl = !smdl"
+          ></i>
         </span>
       </div>
       <div class="ewmbox">
@@ -71,73 +109,82 @@
           <p>打开 微信 扫一扫登录</p>
         </div>
         <div class="smalltxt">
-          <router-link class="a" to="#">免费注册</router-link>
+          <router-link
+            class="a"
+            to="#"
+          >免费注册</router-link>
         </div>
       </div>
     </el-card>
-    <vue-particles color="#fff" :linesWidth="2" style="height: 100%;width: 100%;"></vue-particles>
+    <vue-particles
+      color="#fff"
+      :linesWidth="2"
+      style="height: 100%;width: 100%;"
+    ></vue-particles>
   </div>
 </template>
 <script>
-import md5 from 'md5'
+import md5 from "md5";
 export default {
-  name: 'Login',
+  name: "Login",
   data() {
     const validateUsername = (rule, value, callback) => {
       if (value.length < 5) {
-        callback(new Error('用户名密码不能小于5位'))
+        callback(new Error("用户名密码不能小于5位"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     const validatePass = (rule, value, callback) => {
       if (value.length < 5) {
-        callback(new Error('密码不能小于5位'))
+        callback(new Error("密码不能小于5位"));
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
       smdl: true,
       loginForm: {
-        username: 'admin',
-        password: 'admin'
+        username: "admin",
+        password: "admin",
       },
       loginRules: {
         username: [
-          { required: true, trigger: 'blur', validator: validateUsername }
+          { required: true, trigger: "blur", validator: validateUsername },
         ],
-        password: [{ required: true, trigger: 'blur', validator: validatePass }]
+        password: [
+          { required: true, trigger: "blur", validator: validatePass },
+        ],
       },
-      loading: false
-    }
+      loading: false,
+    };
   },
   methods: {
     submitForm() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.loading = true
+          this.loading = true;
           this.$store
-            .dispatch('Login', this.loginForm)
-            .then(data => {
-              this.loading = false
+            .dispatch("Login", this.loginForm)
+            .then((data) => {
+              this.loading = false;
               //登录成功，跳转到后台Home主页
               if (data) {
-                this.$router.push('/')
+                this.$router.push("/");
               }
             })
             .catch(() => {
-              this.loading = false
-            })
+              this.loading = false;
+            });
         } else {
-          this.$message.error('error submit!!') //登录失败提示错误
-          return false
+          this.$message.error("error submit!!"); //登录失败提示错误
+          return false;
         }
-      })
-    }
+      });
+    },
   },
-  mounted() {}
-}
+  mounted() {},
+};
 </script>
 <style lang="scss">
 .login-wrap {

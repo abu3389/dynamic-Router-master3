@@ -1,9 +1,19 @@
+/*
+ * @Author: zhanghan
+ * @Date: 2020-08-26 11:29:40
+ * @LastEditors: zhanghan
+ * @LastEditTime: 2020-08-26 12:05:24
+ * @Descripttion: 
+ */
 import axios from "axios";
-import { Message, MessageBox } from "element-ui";
+import {
+  Message,
+  MessageBox
+} from "element-ui";
 
 const axiosConfig = {};
 
-axiosConfig.ajax = function() {
+axiosConfig.ajax = function () {
   //正式接口基础配置
   const service = axios.create({
     baseURL: "/api",
@@ -14,13 +24,11 @@ axiosConfig.ajax = function() {
   return service;
 };
 
-axiosConfig.ajaxtest = function() {
+axiosConfig.ajaxtest = function () {
   //外网测试接口基础配置
   const service = axios.create({
-    baseURL:
-      process.env.NODE_ENV === "production"
-        ? "http://rap2api.taobao.org/"
-        : "/test",
+    baseURL: process.env.NODE_ENV === "production" ?
+      "http://rap2api.taobao.org/" : "/test",
     timeout: 1800000
   });
   //添加请求响应拦截器
@@ -28,7 +36,7 @@ axiosConfig.ajaxtest = function() {
   return service;
 };
 
-axiosConfig.ajaxmock = function() {
+axiosConfig.ajaxmock = function () {
   //本地mock测试接口基础配置
   const service = axios.create({
     timeout: 1800000
@@ -65,20 +73,20 @@ const interceptorsResponse = service => {
     response => {
       // 对响应数据做点什么
       const res = response.data;
-      // console.log("添加响应拦截器", response);
-      // if (res.state !== 100) {
-      //   //有错误提示
-      //   Message({
-      //     type: "error",
-      //     message: res.message,
-      //     duration: 3 * 1000
-      //   });
-      //   //检测是否登录超时,301登录超时状态码
-      //   if (res.state === 301) {
-      //     //校测到超时，主动退出登录
-      //     store.dispatch("LogOut");
-      //   }
-      // }
+      console.log("添加响应拦截器", response);
+      if (res.state !== 200) {
+        //有错误提示
+        Message({
+          type: "error",
+          message: res.message,
+          duration: 3 * 1000
+        });
+        //检测是否登录超时,301登录超时状态码
+        if (res.state === 301) {
+          //校测到超时，主动退出登录
+          store.dispatch("LogOut");
+        }
+      }
       return res;
     },
     error => {

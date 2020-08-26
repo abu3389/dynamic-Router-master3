@@ -1,3 +1,10 @@
+/*
+ * @Author: zhanghan
+ * @Date: 2020-08-26 11:29:40
+ * @LastEditors: zhanghan
+ * @LastEditTime: 2020-08-26 11:51:25
+ * @Descripttion: 
+ */
 //获取get请求  ? 后面的参数
 function param2Obj(url) {
   const search = url.split("?")[1];
@@ -54,15 +61,15 @@ export default {
   login: res => {
     const { username, password } = JSON.parse(res.body); //解构 username
 
-    if (username in tokens && tokens[username].pas == password) {
+    if (username in tokens && tokens[username].pas === password) {
       let result = tokens[username].token;
       return {
-        state: 100,
+        state: 200,
         result
       };
     }
     return {
-      state: 90001,
+      state: 100,
       message: "账户或密码错误."
     };
   },
@@ -72,18 +79,18 @@ export default {
 
     if (info) {
       return {
-        state: 100,
+        state: 200,
         result: info
       };
     }
     return {
-      state: 50008,
+      state: 100,
       message: "登陆失败，无法获取用户信息"
     };
   },
   logout: () => {
     return {
-      state: 100,
+      state: 200,
       data: "success"
     };
   }

@@ -1,5 +1,7 @@
 import mockTest from "@/api/test/mock";
-import { resetRouter } from "@/router";
+import {
+  resetRouter
+} from "@/router";
 
 // import cookie from "@/utils/cookie.js";
 // import cookie from "js-cookie";
@@ -41,11 +43,14 @@ const user = {
   },
   actions: {
     // 登录
-    Login({ commit }, userInfo) {
+    Login({
+      commit
+    }, userInfo) {
       const username = userInfo.username.trim();
       return new Promise((resolve, reject) => {
         mockTest.login(username, userInfo.password).then(response => {
-          if (response) {
+          console.log('response', response)
+          if (response.state === 200) {
             // localStorage.setItem(app, response.result, 60); //60为 1分钟
             localStorage.setItem(userName, username);
             localStorage.setItem(app, response.result);
@@ -59,7 +64,10 @@ const user = {
       });
     },
     // // 获取用户信息
-    GetInfo({ commit, state }) {
+    GetInfo({
+      commit,
+      state
+    }) {
       return new Promise((resolve, reject) => {
         mockTest.getInfo(state.token).then(response => {
           if (response) {
@@ -75,7 +83,10 @@ const user = {
       });
     },
     //退出登录
-    LogOut({ commit, state }) {
+    LogOut({
+      commit,
+      state
+    }) {
       return new Promise((resolve, reject) => {
         mockTest
           .logout(state.token)
@@ -97,7 +108,9 @@ const user = {
       });
     },
     // remove token
-    resetToken({ commit }) {
+    resetToken({
+      commit
+    }) {
       return new Promise(resolve => {
         commit("SET_TOKEN", "");
         commit("SET_ROLES", "");
