@@ -32,15 +32,32 @@
             v-model="loginForm.username"
             auto-complete="off"
             placeholder="请输入登录账号"
-          ></el-input>
+          >
+            <i
+              slot="prefix"
+              class="el-input__icon el-icon-user"
+            ></i>
+          </el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input
-            type="password"
+            :type="passwordType"
             v-model="loginForm.password"
+            ref="pwd"
             auto-complete="off"
             placeholder="请输入登录密码"
-          ></el-input>
+          >
+            <i
+              slot="prefix"
+              class="el-input__icon el-icon-lock"
+            ></i>
+            <i
+              slot="suffix"
+              class="el-input__icon el-icon-view"
+              style="cursor: pointer;"
+              @click="showPwd"
+            ></i>
+          </el-input>
         </el-form-item>
         <el-form-item>
           <el-button
@@ -144,6 +161,7 @@ export default {
     };
     return {
       smdl: true,
+      passwordType: "password",
       loginForm: {
         username: "admin",
         password: "admin",
@@ -160,6 +178,7 @@ export default {
     };
   },
   methods: {
+    // 登录表单提交
     submitForm() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
@@ -180,6 +199,13 @@ export default {
           this.$message.error("error submit!!"); //登录失败提示错误
           return false;
         }
+      });
+    },
+    // 显示/隐藏密码
+    showPwd() {
+      this.passwordType = this.passwordType === "password" ? "" : "password";
+      this.$nextTick(() => {
+        this.$refs.pwd.focus();
       });
     },
   },
