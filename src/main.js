@@ -1,3 +1,10 @@
+/*
+ * @Author: zhanghan
+ * @Date: 2020-08-26 11:29:40
+ * @LastEditors: zhanghan
+ * @LastEditTime: 2021-05-16 01:41:51
+ * @Descripttion: 
+ */
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router/";

@@ -30,7 +30,9 @@ router.beforeEach(async (to, from, next) => {
         // 获取角色信息
         const role = store.getters.getroles;
         //根据角色 生成响应的路由
-        await store.dispatch("GenerateRoutes", { role });
+        await store.dispatch("GenerateRoutes", {
+          role
+        });
         // hack方法 确保addRoutes已完成
         next({
           ...to,
@@ -67,9 +69,8 @@ Vue.directive("permission", {
     let nowRoleType = store.getters.getroles;
     //获取当前路由需要权限的按钮组
     console.log("router.currentRoute", router.currentRoute);
-    let btnGroup = router.currentRoute.meta.hasOwnProperty("btnGroup")
-      ? router.currentRoute.meta.btnGroup
-      : [];
+    let btnGroup = router.currentRoute.meta.hasOwnProperty("btnGroup") ?
+      router.currentRoute.meta.btnGroup : [];
     //判断当前角色是否具有该按钮权限
     let permission = false;
     let nowBtnInfo = {};

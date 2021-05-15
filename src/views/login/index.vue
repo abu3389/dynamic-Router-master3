@@ -63,6 +63,7 @@
           <el-button
             class="subBtn"
             type="primary"
+            :loading="loading"
             @click="submitForm"
           >登录</el-button>
         </el-form-item>

@@ -63,10 +63,11 @@ const user = {
         });
       });
     },
-    // // 获取用户信息
+    // 获取用户信息
     GetInfo({
       commit,
-      state
+      state,
+      dispatch
     }) {
       return new Promise((resolve, reject) => {
         mockTest.getInfo(state.token).then(response => {

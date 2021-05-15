@@ -58,7 +58,7 @@
     "editor.defaultFormatter": "octref.vetur"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    "editor.defaultFormatter": "HookyQR.beautify"
   },
   "[json]": {
     "editor.defaultFormatter": "HookyQR.beautify"

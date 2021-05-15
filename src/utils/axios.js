@@ -2,7 +2,7 @@
  * @Author: zhanghan
  * @Date: 2020-08-26 11:29:40
  * @LastEditors: zhanghan
- * @LastEditTime: 2020-08-26 12:05:24
+ * @LastEditTime: 2021-05-16 02:20:47
  * @Descripttion: 
  */
 import axios from "axios";
@@ -11,12 +11,14 @@ import {
   MessageBox
 } from "element-ui";
 
+const isProd = process.env.NODE_ENV === 'production'
+
 const axiosConfig = {};
 
 axiosConfig.ajax = function () {
   //正式接口基础配置
   const service = axios.create({
-    baseURL: "/api",
+    baseURL: isProd ? process.env.VUE_APP_BASE_URL : process.env.VUE_APP_PROXY_URL,
     timeout: 1800000
   });
   //添加请求响应拦截器
@@ -27,8 +29,7 @@ axiosConfig.ajax = function () {
 axiosConfig.ajaxtest = function () {
   //外网测试接口基础配置
   const service = axios.create({
-    baseURL: process.env.NODE_ENV === "production" ?
-      "http://rap2api.taobao.org/" : "/test",
+    baseURL: isProd ? process.env.VUE_APP_BASE_URL_TEST : process.env.VUE_APP_PROXY_URL_TEST,
     timeout: 1800000
   });
   //添加请求响应拦截器
