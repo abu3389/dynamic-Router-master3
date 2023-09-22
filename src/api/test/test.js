@@ -4,7 +4,7 @@ const service = axiosConfig.ajaxtest();
 
 export function getMenuList(params) {
   return service({
-    url: "/app/mock/236973/test/getMenuList.jhtml",
+    url: "/m1/3335038-0-default/getMenuList",
     method: "get",
     params
   });
