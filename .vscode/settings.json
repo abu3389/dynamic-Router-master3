@@ -24,7 +24,6 @@
       // 格式化为单引号
       "singleQuote": true
     }
-
   },
   "editor.wordWrapColumn": 80,
   "editor.tabSize": 2,
@@ -34,7 +33,10 @@
     "*.vue": "vue"
   },
   "eslint.options": {
-    "extensions": [".js", ".vue"]
+    "extensions": [
+      ".js",
+      ".vue"
+    ]
   },
   "eslint.validate": [
     "javascript",
@@ -58,7 +60,7 @@
     "editor.defaultFormatter": "octref.vetur"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "HookyQR.beautify"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[json]": {
     "editor.defaultFormatter": "HookyQR.beautify"
